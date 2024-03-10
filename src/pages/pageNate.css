@@ -1,0 +1,10 @@
+.pages {
+    padding: 100000;
+    position: relative;
+}
+.page {
+    float: left;
+    list-style:none;
+    margin-right: 20px;
+    color: rgb(58, 121, 197);
+}
