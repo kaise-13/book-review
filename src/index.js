@@ -7,8 +7,8 @@ import { Provider } from 'react-redux'
 import { store } from './store.js'
 
 const container = document.getElementById('root')
-const a = createRoot(container) // createRoot(container!) if you use TypeScript
-a.render(
+const root = createRoot(container) // createRoot(container!) if you use TypeScript
+root.render(
   <Provider store={store}>
     <CookiesProvider>
       <App />

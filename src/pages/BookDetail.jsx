@@ -38,9 +38,9 @@ export const BookDetail = () => {
               },
             }
           )
-          // .catch((err) => {
-          //   setErrorMessage(`ログの送信に失敗しました。${err}`);
-          // });f
+          .catch((err) => {
+            setErrorMessage(`ログの送信に失敗しました。${err}`);
+          });
         setIsLoading(false);
         setTitle(res.data.title);
         setUrl(res.data.url);

@@ -10,7 +10,6 @@ import Compressor from 'compressorjs';
 
 export const SignUp = () => {
   const navigate = useNavigate()
-  // const isSiginIn = useSelector((state) => state.auth.isSignIn)
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
@@ -21,12 +20,6 @@ export const SignUp = () => {
   const handleEmailChange = (e) => setEmail(e.target.value)
   const handleNameChange = (e) => setName(e.target.value)
   const handlePasswordChange = (e) => setPassword(e.target.value)
-  // アイコン(既存実装)
-  // const handleFileChange = (e) => {
-  //   const f = new FormData()
-  //   f.append("icon", e.target.files[0])
-  //   setFile(f)
-  // }
   
   // アイコン(圧縮実装)
   const handleFileChange = (e) => {
@@ -75,8 +68,6 @@ export const SignUp = () => {
       .catch((err) => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`)
       })
-
-    // if (isSiginIn) return <Navigate to="/" />
   }
   return (
     <div>

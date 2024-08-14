@@ -4,7 +4,7 @@ import axios from "axios";
 import { Header } from "../components/Header";
 import { url } from "../const";
 import "./home.css";
-import { PageNate } from "./PageNate";
+import { PageNate } from "../components/PageNate";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -51,7 +51,7 @@ export const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [num]);
   return (
-    <div>
+    <>
       <Header />
       <main className="book-list">
         <div>
@@ -88,6 +88,6 @@ export const Home = () => {
           <PageNate />
         </div>
       </main>
-    </div>
+    </>
   );
 };
