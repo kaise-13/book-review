@@ -74,16 +74,22 @@ export const Home = () => {
             {books.map((book, key) => {
               return (
                 <li key={key} className="book-list__book">
-                  <Link to={`/detail/${book.id}`}>
+                  {auth ? (
+                    <Link to={`/detail/${book.id}`}>
+                    {book.title}
+                    <br />
+                  </Link>) : (
+                    <Link to={`/unAuthorization`}>
                     {book.title}
                     <br />
                   </Link>
+                  )}
                 </li>
               );
             })}
           </ul>
           <div>
-            <Link to={"/new"}>書籍登録</Link>
+            {auth ? (<Link to={"/new"}>書籍登録</Link>) : (<></>)}
           </div>
           <PageNate />
         </div>

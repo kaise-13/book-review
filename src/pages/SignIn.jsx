@@ -38,7 +38,7 @@ export const SignIn = () => {
     );
 
   return (
-    <div>
+    <>
       <Header />
       <main className="signin">
         <h2>サインイン</h2>
@@ -60,6 +60,7 @@ export const SignIn = () => {
             onChange={handlePasswordChange}
           />
           <br />
+          <br />
           <button
             type="button"
             className="signin-button"
@@ -69,13 +70,14 @@ export const SignIn = () => {
             サインイン
           </button>
         </form>
-        <Link to="/signup">新規作成</Link>
+        <br />
+        <Link to="/signup">アカウント新規作成</Link>
         <div>
           <br />
           <br />
           <Link to={`/`}>未ログイン</Link>
         </div>
       </main>
-    </div>
+    </>
   );
 };

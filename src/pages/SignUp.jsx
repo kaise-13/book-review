@@ -21,7 +21,6 @@ export const SignUp = () => {
   const handleNameChange = (e) => setName(e.target.value)
   const handlePasswordChange = (e) => setPassword(e.target.value)
   
-  // アイコン(圧縮実装)
   const handleFileChange = (e) => {
     const file = e.target.files[0]
     if(file !== null) {

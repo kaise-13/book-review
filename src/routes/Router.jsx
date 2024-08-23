@@ -8,6 +8,7 @@ import { RegistBook } from "../pages/RegistBook";
 import { BookDetail } from "../pages/BookDetail";
 import { EditBook } from "../pages/EditBook";
 import { NotFound } from "../pages/NotFound";
+import { UnAuthorization } from "../pages/UnAuthorization";
 
 export const Router = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -18,6 +19,7 @@ export const Router = () => {
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/unAuthorization" element={<UnAuthorization />} />
         {auth ? (
           <>
             <Route exact path="/profile" element={<ModifyUser />} />
@@ -27,7 +29,7 @@ export const Router = () => {
           </>
         ) : (
           <>
-            <Route path="/" element={<Navigate to="/signin" />} />
+            <Route path="*" element={<Navigate to="/signin" />} />
           </>
         )}
         <Route component={NotFound} />

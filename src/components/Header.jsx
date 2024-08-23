@@ -15,7 +15,7 @@ export const Header = () => {
     navigate("/signin");
   };
   const goToLogInPage = () => {
-    navigate("signin");
+    navigate("/signin");
   };
 
   return (
