@@ -69,10 +69,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # railway-bookReview
-# bookReview
-# bookReview
-# bookReview
-# book-review2
 # book-review2
 # book-review
 # book-review
