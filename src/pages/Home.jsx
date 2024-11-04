@@ -7,14 +7,23 @@ import "./home.css";
 import { PageNate } from "../components/PageNate";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { backPage } from "../Slices/pagenateSlice";
 
 export const Home = () => {
   const [books, setBooks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState("");
   const [cookies] = useCookies();
-  const num = useSelector((state) => state.pagenate.num);
+  const pageNum = useSelector((state) => state.pagenate.num);
   const auth = useSelector((state) => state.auth.isSignIn);
+
+  const dispatch = useDispatch();
+  const goToBackPage = () => {
+    dispatch(backPage());
+  }
+
+  // ページ情報の取得（ページ更新毎）
   useEffect(() => {
     axios
       .get(`${url}/users`, {
@@ -22,34 +31,55 @@ export const Home = () => {
           authorization: `Bearer ${cookies.token}`,
         },
       })
+      // ログイン時
       .then((res) => {
         setUser(res.data.name + "さん");
-        axios
-          .get(`${url}/books?offset=${num}`, {
-            headers: {
-              authorization: `Bearer ${cookies.token}`,
-            },
-          })
-          .then((res) => {
-            setBooks(res.data);
-          })
-          .catch((err) => {
-            setErrorMessage(`書籍の取得に失敗しました。${err}`);
-          });
+        fetchBooks(pageNum);
       })
+      // 未ログイン時
       .catch((err) => {
         setErrorMessage(`ユーザー情報の取得に失敗しました。${err}`);
-        axios
-          .get(`${url}/public/books?offset=${num}`, {})
-          .then((res) => {
-            setBooks(res.data);
-          })
-          .catch((err) => {
-            setErrorMessage(`書籍の取得に失敗しました。${err}`);
-          });
+        fetchPublicBooks(pageNum);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [num]);
+
+    const fetchBooks = (page) => {
+      axios
+        .get(`${url}/books?offset=${page}`, {
+          headers: {
+            authorization: `Bearer ${cookies.token}`,
+          },
+        })
+        .then((res) => {
+          if (res.data.length === 0 && page > 0) {
+            // データが空の場合、dispatchでページを-1にして再取得
+            goToBackPage();
+          } else {
+            setBooks(res.data);
+          }
+        })
+        .catch((err) => {
+          setErrorMessage(`書籍の取得に失敗しました。${err}`);
+        });
+    };
+
+    const fetchPublicBooks = (page) => {
+      axios
+        .get(`${url}/public/books?offset=${page}`, {})
+        .then((res) => {
+          if (res.data.length === 0 && page > 0) {
+            // データが空の場合、dispatchでページを-1にして再取得
+            goToBackPage();
+          } else {
+            setBooks(res.data);
+          }
+        })
+        .catch((err) => {
+          setErrorMessage(`書籍の取得に失敗しました。${err}`);
+        });
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNum, dispatch]); // pageNumが変わるたびに再取得する
+
   return (
     <>
       <Header />
@@ -78,11 +108,12 @@ export const Home = () => {
                     <Link to={`/detail/${book.id}`}>
                     {book.title}
                     <br />
-                  </Link>) : (
+                    </Link>
+                  ) : (
                     <Link to={`/unAuthorization`}>
                     {book.title}
                     <br />
-                  </Link>
+                    </Link>
                   )}
                 </li>
               );
@@ -91,6 +122,8 @@ export const Home = () => {
           <div>
             {auth ? (<Link to={"/new"}>書籍登録</Link>) : (<></>)}
           </div>
+          <br />
+          <br />
           <PageNate />
         </div>
       </main>

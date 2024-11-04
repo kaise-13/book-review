@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { signIn } from '../authSlice'
+import { signIn } from '../Slices/authSlice'
 import { Header } from '../components/Header'
 import { url } from '../const'
 import Compressor from 'compressorjs';

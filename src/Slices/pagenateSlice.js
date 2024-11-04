@@ -9,6 +9,12 @@ export const pagenateSlice = createSlice({
     name: 'pagenate',
     initialState,
     reducers: {
+        firstPage(state, action) {
+            if (state.num > 1) {
+                state.num = 0
+                state.page = 1
+            }
+        },
         backPage(state, action) {
             if (state.num >= 0) {
                 state.num = state.num - 10;
@@ -25,4 +31,4 @@ export const pagenateSlice = createSlice({
         }
     },
 })
-export const { nextPage, backPage, resetPage } = pagenateSlice.actions
+export const { firstPage, nextPage, backPage, resetPage } = pagenateSlice.actions

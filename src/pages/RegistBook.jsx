@@ -56,13 +56,16 @@ export const RegistBook = () => {
                     <br />
                     <input onChange={handleTitleChange}/>
                     <br />
+                    <br />
                     <label>url</label>
                     <br />
                     <input onChange={handleUrlChange}/>
                     <br />
+                    <br />
                     <label>書籍詳細</label>
                     <br />
                     <input onChange={handleDetailChange}/>
+                    <br />
                     <br />
                     <label>レビュー</label>
                     <br />
@@ -70,6 +73,7 @@ export const RegistBook = () => {
                   </form>
                 </div>
               </div>
+              <br />
               <div>
                 <button onClick={registBook}>書籍登録</button>
               </div>

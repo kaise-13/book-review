@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { Header } from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../authSlice";
+import { signIn } from "../Slices/authSlice";
 import { url } from "../const";
 
 export const SignIn = () => {

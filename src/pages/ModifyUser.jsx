@@ -60,11 +60,13 @@ export const ModifyUser = () => {
                   <h2>ユーザー情報更新</h2>
                 </div>
                 <span>ユーザー名</span>
+                <br />
                 <input 
                   onChange={handleUserChange}
                   value={newUserName} 
                 />
               </div>
+              <br />
               <div>
                 <button onClick={changeUserInfo}>変更</button>
               </div>

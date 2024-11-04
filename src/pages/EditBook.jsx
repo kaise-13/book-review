@@ -86,6 +86,7 @@ export const EditBook = () => {
                     <br />
                     <input onChange={handleTitleChange} value={title}></input>
                     <br />
+                    <br />
                     <label>url</label>
                     <br />
                     <input onChange={handleUrlChange} value={url1}></input>
@@ -94,16 +95,14 @@ export const EditBook = () => {
                     <br />
                     <input onChange={handleDetailChange} value={detail}></input>
                     <br />
+                    <br />
                     <label>レビュー</label>
                     <br />
                     <input onChange={handleReviewChange} value={review}></input>
                 </form>
-                <div>
-                    <button onClick={editBook}>更新</button>
-                </div>
-                <div>
+                <br />
+                    <button style={{ marginRight: '8px' }} onClick={editBook}>更新</button>
                     <button onClick={deleteBook}>削除</button>
-                </div>
             </main>
         </div>
     )

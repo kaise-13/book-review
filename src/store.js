@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { authSlice } from './authSlice'
-import { pagenateSlice } from './pagenateSlice'
+import { authSlice } from './Slices/authSlice'
+import { pagenateSlice } from './Slices/pagenateSlice'
 
 export const store = configureStore({
   reducer: {
