@@ -32,7 +32,7 @@ export const Router = () => {
             <Route path="*" element={<Navigate to="/signin" />} />
           </>
         )}
-        <Route component={NotFound} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

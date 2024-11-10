@@ -14,6 +14,7 @@ export const Home = () => {
   const [books, setBooks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState("");
+  const [icon, setIcon] = useState("");
   const [cookies] = useCookies();
   const pageNum = useSelector((state) => state.pagenate.num);
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -34,6 +35,7 @@ export const Home = () => {
       // ログイン時
       .then((res) => {
         setUser(res.data.name + "さん");
+        setIcon(res.data.iconUrl);
         fetchBooks(pageNum);
       })
       // 未ログイン時
@@ -89,6 +91,8 @@ export const Home = () => {
             {auth ? (
               <>
                 <p className="book-list__error-message">{errorMessage}</p>
+                {icon && <img src={icon} alt="ユーザーアイコン" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />}
+                <br />
                 <Link to={`/profile`}>{user}</Link>
               </>
             ) : (

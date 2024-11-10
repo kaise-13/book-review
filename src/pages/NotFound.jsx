@@ -1,3 +1,10 @@
+import { Header } from "../components/Header"
+
 export const NotFound = () => {
-  return <h1>Sorry, Not found</h1>
+  return (
+    <>
+      <Header />
+      <h1>Sorry, Not found</h1>
+    </>
+  )
 }

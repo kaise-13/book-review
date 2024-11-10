@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { signIn } from '../Slices/authSlice'
 import { Header } from '../components/Header'
 import { url } from '../const'
-import Compressor from 'compressorjs';
+import Compressor from "compressorjs";
 
 export const SignUp = () => {
   const navigate = useNavigate()
@@ -15,6 +15,7 @@ export const SignUp = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessge] = useState('')
+  const [previewUrl, setPreviewUrl] = useState("");
   const [file, setFile] = useState(null)
   const [, setCookie] = useCookies()
   const handleEmailChange = (e) => setEmail(e.target.value)
@@ -23,19 +24,24 @@ export const SignUp = () => {
   
   const handleFileChange = (e) => {
     const file = e.target.files[0]
-    if(file !== null) {
-      return;
-    }
-    new Compressor(file, {
-      quality:0.6,
-      maxHeight:400,
-      maxWidth:400,
-      success(result) {
-        const formData = new FormData()
-        formData.append('icon', result, result.name)
-        setFile(formData)
+      if(!file) {
+        return;
       }
-    })
+      setPreviewUrl(URL.createObjectURL(file));
+      new Compressor(file, {
+        quality: 0.6,
+        maxHeight: 400,
+        maxWidth: 400,
+        success(compressedFile) {
+            // FormDataにリサイズ後の画像を設定
+            const formData = new FormData();
+            formData.append("icon", compressedFile, compressedFile.name);
+            setFile(formData);  // 圧縮したファイルをセット
+        },
+        error(err) {
+            setErrorMessge(`画像の圧縮に失敗しました: ${err.message}`);
+        }
+      });
   }
   const onSignUp = () => {
     const data = {
@@ -50,19 +56,18 @@ export const SignUp = () => {
         const token = res.data.token
         dispatch(signIn())
         setCookie('token', token)
-        const headers = {
-          'Content-Type': 'multipart/form-data',
-          Authorization: 'Bearer ' + token
-        }
         axios
-          .post(`${url}/uploads`, file, {headers: headers})
+          .post(`${url}/uploads`, file, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          })
           .then((res) => {
-            dispatch(signIn())
-            navigate('/')
+            navigate('/');
           })
           .catch((err) => {
-            setErrorMessge(`アイコンアップロードに失敗しました。 ${err}`)
-          })
+            setErrorMessge(`アイコンアップロードに失敗しました。 ${err}`);
+          });
       })
       .catch((err) => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`)
@@ -101,6 +106,7 @@ export const SignUp = () => {
           <br />
           <br />
           <div>
+          {previewUrl && <img src={previewUrl} alt="プレビュー" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px' }} />}
           <input 
             type="file"
             accept='.jpg, .png'
