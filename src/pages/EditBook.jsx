@@ -4,20 +4,24 @@ import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { url } from "../const";
 import axios from "axios";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export const EditBook = () => {
-    const navigate = useNavigate();
     const { id } = useParams();
     const [cookies] = useCookies();
     const [title, setTitle] = useState("");
-    const handleTitleChange = (e) => setTitle(e.target.value);
     const [url1, setUrl] = useState("");
-    const handleUrlChange = (e) => setUrl(e.target.value);
     const [detail, setDetail] = useState("");
-    const handleDetailChange = (e) => setDetail(e.target.value);
     const [review, setReview] = useState("");
-    const handleReviewChange = (e) => setReview(e.target.value);
     const [errorMessage, setErrorMessage] = useState("");
+    
+    const navigate = useNavigate();
+
+    const handleTitleChange = (e) => setTitle(e.target.value);
+    const handleUrlChange = (e) => setUrl(e.target.value);
+    const handleDetailChange = (e) => setDetail(e.target.value);
+    const handleReviewChange = (e) => setReview(e.target.value);
 
     useEffect(() => {
         axios
@@ -59,7 +63,6 @@ export const EditBook = () => {
                 setErrorMessage(`書籍の更新に失敗しました。${err}`)
             })
     }
-
     const deleteBook = () => {
         axios
             .delete(`${url}/books/${id}`,{
@@ -82,27 +85,48 @@ export const EditBook = () => {
                 <h2>書籍編集</h2>
                 <p>{errorMessage}</p>
                 <form>
-                    <label>タイトル</label>
-                    <br />
-                    <input onChange={handleTitleChange} value={title}></input>
-                    <br />
-                    <br />
-                    <label>url</label>
-                    <br />
-                    <input onChange={handleUrlChange} value={url1}></input>
-                    <br />
-                    <label>詳細</label>
-                    <br />
-                    <input onChange={handleDetailChange} value={detail}></input>
+                    <TextField 
+                      id="standard-basic"
+                      label="book title"
+                      variant="standard"
+                      onChange={handleTitleChange}
+                      value={title}
+                    />
                     <br />
                     <br />
-                    <label>レビュー</label>
+                    <TextField
+                      id="standard-basic"
+                      label="book url"
+                      variant="standard" 
+                      onChange={handleUrlChange}
+                      value={url1}
+                    />
                     <br />
-                    <input onChange={handleReviewChange} value={review}></input>
+                    <br />
+                    <br />
+                    <TextField 
+                      id="outlined-multiline-flexible"
+                      label="book detail"
+                      multiline
+                      maxRows={4}
+                      onChange={handleDetailChange} 
+                      value={detail}
+                    />
+                    <br />
+                    <br />
+                    <br />
+                    <TextField 
+                      id="outlined-multiline-flexible"
+                      label="book feedback"
+                      multiline
+                      maxRows={4}
+                      onChange={handleReviewChange} 
+                      value={review}
+                    />
                 </form>
                 <br />
-                    <button style={{ marginRight: '8px' }} onClick={editBook}>更新</button>
-                    <button onClick={deleteBook}>削除</button>
+                    <Button variant="contained" color="info" style={{ marginRight: '8px' }} onClick={editBook}>更新</Button>
+                    <Button variant="contained" sx={{background: "red", color: "white"}} onClick={deleteBook}>削除</Button>
             </main>
         </div>
     )

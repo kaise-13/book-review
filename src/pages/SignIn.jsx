@@ -6,17 +6,23 @@ import { Header } from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../Slices/authSlice";
 import { url } from "../const";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
 
 export const SignIn = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState();
   const [, setCookie] = useCookies();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
+
   const onSignIn = () => {
     axios
       .post(`${url}/signin`, { email: email, password: password })
@@ -44,32 +50,35 @@ export const SignIn = () => {
         <h2>サインイン</h2>
         <p className="error-message">{errorMessage}</p>
         <form className="signin-form">
-          <label className="email-label">メールアドレス</label>
           <br />
-          <input
+          <TextField
             type="email"
-            className="email-input"
+            id="standard-basic"
+            label="e-mail"
+            variant="standard"
             onChange={handleEmailChange}
           />
           <br />
-          <label className="password-label">パスワード</label>
           <br />
-          <input
+          <TextField
             type="password"
-            className="password-input"
+            id="standard-basic"
+            label="password"
+            variant="standard"
             onChange={handlePasswordChange}
           />
           <br />
           <br />
-          <button
+          <br />
+          <Button
             type="button"
-            className="signin-button"
+            variant="contained"
             onClick={onSignIn}
-            aria-label="bu"
           >
             サインイン
-          </button>
+          </Button>
         </form>
+        <br />
         <br />
         <Link to="/signup">アカウント新規作成</Link>
         <div>

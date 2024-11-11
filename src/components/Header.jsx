@@ -2,13 +2,17 @@ import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "../Slices/authSlice";
+import { BackButon } from "./BackButton";
 import "./header.css";
+import Button from '@mui/material/Button';
 
 export const Header = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
+  const [, , removeCookie] = useCookies();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [, , removeCookie] = useCookies();
+
   const handleSignOut = () => {
     dispatch(signOut());
     removeCookie("token");
@@ -21,15 +25,18 @@ export const Header = () => {
   return (
     <header className="header">
       <h1>書籍レビュー</h1>
+      <BackButon style={{ marginRight: '8px' }} />
       {auth ? (
-        <button onClick={handleSignOut} className="sign-out-button">
+        <Button onClick={handleSignOut} variant="outlined">
           サインアウト
-        </button>
+        </Button>
       ) : (
-        <button onClick={goToLogInPage} className="sign-out-button">
+        <Button onClick={goToLogInPage} variant="outlined">
           ログイン
-        </button>
+        </Button>
       )}
+      <br />
+      <br />
     </header>
   );
 };

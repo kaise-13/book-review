@@ -7,6 +7,7 @@ import { url } from "../const";
 import { Header } from "../components/Header";
 import "./bookDetail.css";
 import { Link } from "react-router-dom";
+import { Box, Card, CardContent, CardActions, Typography, Button, CircularProgress } from '@mui/material';
 
 export const BookDetail = () => {
   const { id } = useParams();
@@ -57,38 +58,57 @@ export const BookDetail = () => {
 
   return (
     <>
-      <div>
-        <Header />
+      <Header />
+      <Box sx={{ mt: 8, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {isLoading ? (
-          <div class="loader"></div>
+          <CircularProgress />
         ) : (
-          <>
-            <h2>書籍名：{title}</h2>
-            <p className="error-message">{errorMessage}</p>
-            <div>
-              <form>
-                <label>タイトル：{title}</label>
-                <br />
-                <br />
-                <label>url：{url1}</label>
-                <br />
-                <br />
-                <label>詳細：{detail}</label>
-                <br />
-                <br />
-                <label>レビュー：{review}</label>
-                <br />
-                <br />
-              </form>
-              {isMine ? (
-                <Link to={`/edit/${id}`}>書籍編集</Link>
-              ) : (
-                <Link to={`/`}>編集不可</Link>
+          <Card
+            sx={{
+              width: '100%',
+              maxWidth: 500,
+              p: 2,
+              border: '1px solid rgba(0, 0, 0, 0.2)', 
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+              borderRadius: 2,
+            }}
+          >
+            <CardContent>
+              <Typography variant="h5" component="h2" gutterBottom>
+                {title}
+              </Typography>
+              {errorMessage && (
+                <Typography color="error" sx={{ mb: 2 }}>
+                  {errorMessage}
+                </Typography>
               )}
-            </div>
-          </>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                <strong>タイトル：</strong> {title}
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                <strong>URL：</strong> <a href={url1} target="_blank" rel="noopener noreferrer">{url1}</a>
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                <strong>詳細：</strong> {detail}
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                <strong>レビュー：</strong> {review}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center' }}>
+              {isMine ? (
+                <Button variant="contained" color="primary" component={Link} to={`/edit/${id}`}>
+                  書籍編集
+                </Button>
+              ) : (
+                <Button variant="outlined" color="secondary" component={Link} to={`/`}>
+                  編集不可
+                </Button>
+              )}
+            </CardActions>
+          </Card>
         )}
-      </div>
+      </Box>
     </>
   );
 };

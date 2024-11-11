@@ -4,19 +4,23 @@ import { useCookies } from "react-cookie"
 import axios from "axios";
 import { url } from "../const";
 import { useNavigate } from "react-router";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export const RegistBook = () => {
     const [title, setTitle] = useState("");
-    const handleTitleChange = (e) => setTitle(e.target.value);
     const [url2, setUrl] = useState("");
-    const handleUrlChange = (e) => setUrl(e.target.value);
     const [detail, setDetail] = useState("");
-    const handleDetailChange = (e) => setDetail(e.target.value);
     const [review, setReview] = useState("");
-    const handleReviewChange = (e) => setReview(e.target.value);
     const [errorMessage, setErrorMessage] = useState("");
     const [cookies] = useCookies();
+
     const navigate = useNavigate();
+
+    const handleTitleChange = (e) => setTitle(e.target.value);
+    const handleUrlChange = (e) => setUrl(e.target.value);
+    const handleDetailChange = (e) => setDetail(e.target.value);
+    const handleReviewChange = (e) => setReview(e.target.value);
 
     const registBook = () => {
       const data = {
@@ -25,7 +29,6 @@ export const RegistBook = () => {
         detail: detail,
         review: review,
       }
-
       axios
         .post(`${url}/books`, data, {
           headers: {
@@ -52,30 +55,43 @@ export const RegistBook = () => {
                 </div>
                 <div>
                   <form>
-                    <label>タイトル</label>
-                    <br />
-                    <input onChange={handleTitleChange}/>
-                    <br />
-                    <br />
-                    <label>url</label>
-                    <br />
-                    <input onChange={handleUrlChange}/>
+                    <TextField
+                      id="standard-basic"
+                      label="book title"
+                      variant="standard"
+                      onChange={handleTitleChange}
+                    />
                     <br />
                     <br />
-                    <label>書籍詳細</label>
+                    <TextField
+                      id="standard-basic"
+                      label="book url"
+                      variant="standard"
+                      onChange={handleUrlChange}
+                    />
                     <br />
-                    <input onChange={handleDetailChange}/>
+                    <br />
+                    <TextField
+                      id="standard-basic"
+                      label="book detail"
+                      variant="standard"
+                      onChange={handleDetailChange}
+                    />
                     <br />
                     <br />
-                    <label>レビュー</label>
-                    <br />
-                    <input onChange={handleReviewChange}/>
+                    <TextField
+                      id="standard-basic"
+                      label="book feedback"
+                      variant="standard" 
+                      onChange={handleReviewChange}
+                    />
                   </form>
                 </div>
               </div>
               <br />
+              <br />
               <div>
-                <button onClick={registBook}>書籍登録</button>
+                <Button variant="contained" onClick={registBook}>書籍登録</Button>
               </div>
             </main>
           </div>

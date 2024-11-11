@@ -7,10 +7,10 @@ import { signIn } from '../Slices/authSlice'
 import { Header } from '../components/Header'
 import { url } from '../const'
 import Compressor from "compressorjs";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export const SignUp = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
@@ -18,10 +18,13 @@ export const SignUp = () => {
   const [previewUrl, setPreviewUrl] = useState("");
   const [file, setFile] = useState(null)
   const [, setCookie] = useCookies()
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const handleEmailChange = (e) => setEmail(e.target.value)
   const handleNameChange = (e) => setName(e.target.value)
   const handlePasswordChange = (e) => setPassword(e.target.value)
-  
   const handleFileChange = (e) => {
     const file = e.target.files[0]
       if(!file) {
@@ -43,13 +46,13 @@ export const SignUp = () => {
         }
       });
   }
+
   const onSignUp = () => {
     const data = {
       email: email,
       name: name,
       password: password,
     }
-
     axios
       .post(`${url}/users`, data)
       .then((res) => {
@@ -73,6 +76,7 @@ export const SignUp = () => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`)
       })
   }
+
   return (
     <div>
       <Header />
@@ -80,33 +84,35 @@ export const SignUp = () => {
         <h2>新規作成</h2>
         <p className="error-message">{errorMessage}</p>
         <form className="signup-form">
-          <label>メールアドレス</label>
           <br />
-          <input
+          <TextField
             type="email"
+            id="standard-basic"
+            label="e-mail"
+            variant="standard"
             onChange={handleEmailChange}
-            className="email-input"
           />
           <br />
-          <label>ユーザ名</label>
           <br />
-          <input
-            type="text"
+          <TextField
+            id="standard-basic"
+            label="user name"
+            variant="standard"
             onChange={handleNameChange}
-            className="name-input"
           />
           <br />
-          <label>パスワード</label>
           <br />
-          <input
-            type="password"
+          <TextField
+            id="standard-basic"
+            label="password"
+            variant="standard"
             onChange={handlePasswordChange}
-            className="password-input"
           />
           <br />
           <br />
           <div>
           {previewUrl && <img src={previewUrl} alt="プレビュー" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px' }} />}
+          <br />
           <input 
             type="file"
             accept='.jpg, .png'
@@ -114,9 +120,9 @@ export const SignUp = () => {
           />
           </div>
           <br />
-          <button type="button" onClick={onSignUp} className="signup-button">
+          <Button type="button" variant="contained" onClick={onSignUp}>
             作成
-          </button>
+          </Button>
         </form>
       </main>
     </div>

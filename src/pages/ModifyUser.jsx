@@ -5,14 +5,18 @@ import { url } from "../const";
 import { Header } from "../components/Header";
 import { useNavigate } from "react-router";
 import Compressor from "compressorjs";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export const ModifyUser = () => {
-    // const [defaultUserName, setDefaultUserName] = useState("");
     const [newUserName, setNewUserName] = useState("");
     const [iconUrl, setIconUrl] = useState("");
     const [file, setFile] = useState(null)
     const [errorMessage, setErrorMessage] = useState("");
     const [cookies] = useCookies();
+
+    const navigate = useNavigate();
+
     const handleUserChange = (e) => setNewUserName(e.target.value)
     const handleFileChange = (e) => {
       const file = e.target.files[0]
@@ -35,7 +39,6 @@ export const ModifyUser = () => {
         }
     });
     }
-    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -70,7 +73,6 @@ export const ModifyUser = () => {
             setErrorMessage(`更新に失敗しました。${err}`);
           })
     }
-
     const changeUserIcon = () => {
       axios
         .post(`${url}/uploads`, file, {
@@ -96,22 +98,22 @@ export const ModifyUser = () => {
                 <div>
                   <h2>ユーザー情報更新</h2>
                 </div>
-                <h3>ユーザー名</h3>
                 <br />
-                <input 
+                <TextField 
+                  id="standard-basic"
+                  label="user name"
+                  variant="standard"
                   onChange={handleUserChange}
                   value={newUserName} 
                 />
-              </div>
-              <br />
-              <div>
-                <button onClick={changeUserInfo}>ユーザー名変更</button>
+                <br />
+                <br />
+                <Button variant="contained" onClick={changeUserInfo}>ユーザー名変更</Button>
               </div>
               <br />
               <br />
               <div>
                 <h3>アイコン</h3>
-                <br />
                 {iconUrl && <img src={iconUrl} alt="プレビュー" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px' }} />}
               </div>
               <br />
@@ -123,7 +125,7 @@ export const ModifyUser = () => {
                 />
                 <br />
                 <br />
-                <button onClick={changeUserIcon}>アイコン変更</button>
+                <Button variant="contained" onClick={changeUserIcon}>アイコン変更</Button>
               </div>
             </main>
           </div>
