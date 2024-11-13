@@ -2,8 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { url } from "../const";
-import { Header } from "../components/Header";
+import { Header } from "../components/header/Header";
 import { useNavigate } from "react-router";
+import { PicturePreview } from "../components/PicturePreview";
 import Compressor from "compressorjs";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -114,7 +115,7 @@ export const ModifyUser = () => {
               <br />
               <div>
                 <h3>アイコン</h3>
-                {iconUrl && <img src={iconUrl} alt="プレビュー" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px' }} />}
+                <PicturePreview iconUrl={iconUrl} />
               </div>
               <br />
               <div>

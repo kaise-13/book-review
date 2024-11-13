@@ -1,5 +1,5 @@
-import { useCookies } from "react-cookie"
-import { Header } from "../components/Header"
+import { useCookies } from "react-cookie";
+import { Header } from "../components/header/Header";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { url } from "../const";

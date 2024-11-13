@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { url } from "../const";
-import { Header } from "../components/Header";
+import { Header } from "../components/header/Header";
 import "./bookDetail.css";
 import { Link } from "react-router-dom";
 import { Box, Card, CardContent, CardActions, Typography, Button, CircularProgress } from '@mui/material';

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { Header } from "../components/Header";
+import { Header } from "../components/header/Header";
 import { url } from "../const";
 import "./home.css";
-import { PageNate } from "../components/PageNate";
+import { PageNate } from "../components/pageNate/PageNate";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { backPage } from "../Slices/pagenateSlice";
-import TextField from '@mui/material/TextField';
+import { BookList } from "../components/bookList/BookList";
 
 export const Home = () => {
   const [books, setBooks] = useState([]);
@@ -105,25 +105,7 @@ export const Home = () => {
           <div className="book-list__header">
             <h2>書籍一覧</h2>
           </div>
-          <ul className="book-list__books">
-            {books.map((book, key) => {
-              return (
-                <li key={key} className="book-list__book">
-                  {auth ? (
-                    <Link to={`/detail/${book.id}`}>
-                    {book.title}
-                    <br />
-                    </Link>
-                  ) : (
-                    <Link to={`/unAuthorization`}>
-                    {book.title}
-                    <br />
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+          <BookList auth={auth} books={books} />
           <div>
             {auth ? (<Link to={"/new"}>書籍登録</Link>) : (<></>)}
           </div>

@@ -1,11 +1,11 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { useCookies } from 'react-cookie'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { signIn } from '../Slices/authSlice'
-import { Header } from '../components/Header'
-import { url } from '../const'
+import axios from 'axios';
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { signIn } from '../Slices/authSlice';
+import { Header } from "../components/header/Header";
+import { url } from '../const';
 import Compressor from "compressorjs";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';

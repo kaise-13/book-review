@@ -1,7 +1,7 @@
 import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "../Slices/authSlice";
+import { signOut } from "../../Slices/authSlice";
 import { BackButon } from "./BackButton";
 import "./header.css";
 import Button from '@mui/material/Button';

@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     num: 0,
-    page: 1
+    page: 1,
+    bookNum:0
 }
 
 export const pagenateSlice = createSlice({
@@ -28,7 +29,14 @@ export const pagenateSlice = createSlice({
         resetPage(state, action) {
             state.num = 0;
             state.page = 1;
+        },
+        setPage(state, action) {
+            const targetPage = action.payload;
+            if (targetPage > 0) {
+                state.page = targetPage;
+                state.num = (targetPage - 1) * 10;
+            }
         }
     },
 })
-export const { firstPage, nextPage, backPage, resetPage } = pagenateSlice.actions
+export const { firstPage, nextPage, backPage, resetPage ,setPage} = pagenateSlice.actions
