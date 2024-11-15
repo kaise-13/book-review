@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { signIn } from '../Slices/authSlice';
 import { Header } from "../components/header/Header";
 import { url } from '../const';
+import { PicturePreview } from '../components/PicturePreview';
 import Compressor from "compressorjs";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -32,7 +33,7 @@ export const SignUp = () => {
       }
       setPreviewUrl(URL.createObjectURL(file));
       new Compressor(file, {
-        quality: 0.6,
+        quality: 0.6, // 画質
         maxHeight: 400,
         maxWidth: 400,
         success(compressedFile) {
@@ -103,6 +104,7 @@ export const SignUp = () => {
           <br />
           <br />
           <TextField
+            type="password"
             id="standard-basic"
             label="password"
             variant="standard"
@@ -111,7 +113,7 @@ export const SignUp = () => {
           <br />
           <br />
           <div>
-          {previewUrl && <img src={previewUrl} alt="プレビュー" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px' }} />}
+          <PicturePreview iconUrl={previewUrl} />
           <br />
           <input 
             type="file"

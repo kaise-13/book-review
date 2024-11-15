@@ -58,6 +58,7 @@ export const Home = () => {
             goToBackPage();
           } else {
             setBooks(res.data);
+            setErrorMessage("");
           }
         })
         .catch((err) => {
@@ -74,6 +75,7 @@ export const Home = () => {
             goToBackPage();
           } else {
             setBooks(res.data);
+            setErrorMessage("");
           }
         })
         .catch((err) => {
@@ -111,7 +113,7 @@ export const Home = () => {
           </div>
           <br />
           <br />
-          <PageNate />
+          <PageNate setErrorMessage={setErrorMessage}/>
         </div>
       </main>
     </>

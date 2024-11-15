@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import "./bookList.css";
 
-export const BookList = (props) => {
+export const BookList = ({ auth, books }) => {
     return (
         <ul className="book-list__books">
-            {props.books.map((book, key) => {
+            {books.map((book, key) => {
               return (
                 <li key={key} className="book-list__book">
-                  {props.auth ? (
+                  {auth ? (
                     <Link to={`/detail/${book.id}`}>
                     {book.title}
                     <br />

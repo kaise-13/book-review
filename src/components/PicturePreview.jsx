@@ -1,7 +1,7 @@
-export const PicturePreview = (props) => {
+export const PicturePreview = ({ iconUrl }) => {
     return (
         <>
-          {props.iconUrl && <img src={props.iconUrl} alt="プレビュー" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px' }} />}
+          {iconUrl && <img src={iconUrl} alt="プレビュー" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px' }} />}
         </>
     )
 }

@@ -10,7 +10,7 @@ import './pageNate.css'
 // import { useState } from 'react';
 
 
-export const PageNate = () => {
+export const PageNate = ({ setErrorMessage }) => {
     const dispatch = useDispatch();
     const [bookNum, setBookNum] = useState(0);
 
@@ -69,7 +69,11 @@ export const PageNate = () => {
       dispatch(backPage());
     }
     const goToNextPage = () => {
-      dispatch(nextPage());
+      if (store.getState().pagenate.page === Math.floor(bookNum / 10)+1) {
+        setErrorMessage("現在のページが最終ページです");
+      } else {
+        dispatch(nextPage())
+      }
     }
     const goToThePage = (pageNum) => {
       dispatch(setPage(pageNum))
@@ -89,8 +93,15 @@ export const PageNate = () => {
                 : <li className='page'>前へ</li>
               }
               <li className="page">{store.getState().pagenate.page}</li>
-              <li className="page" onClick={goToNextPage}>次へ</li>
-              <li className="page" onClick={() => goToThePage(Math.floor(bookNum / 10)+1)}>{Math.floor(bookNum / 10)+1}</li>
+              {store.getState().pagenate.page !== Math.floor(bookNum / 10)+1 ? 
+                (
+                  <>
+                    <li className="page" onClick={goToNextPage}>次へ</li>
+                    <li className="page" onClick={() => goToThePage(Math.floor(bookNum / 10)+1)}>{Math.floor(bookNum / 10)+1}</li>
+                  </>
+                )
+                : <li className="page" onClick={goToNextPage}>次へ</li>
+              }
             </ul>
           </footer>
         </>
